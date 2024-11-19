@@ -1,18 +1,15 @@
-import yup from 'yup';
+import { object, ref, string } from 'yup';
 
-export const loginSchema = yup
-  .object({
-    email: yup.string().email().required(),
-    password: yup.string().min(6).required(),
-  })
-  .noUnknown();
+export const loginSchema = object({
+  email: string().email().required(),
+  password: string().min(6).required(),
+}).noUnknown();
 
 export const signupSchema = loginSchema
   .concat(
-    yup.object({
-      repassword: yup
-        .string()
-        .oneOf([yup.ref('password')], 'Passwords must match')
+    object({
+      repassword: string()
+        .oneOf([ref('password')], 'Passwords must match')
         .required(),
     })
   )
