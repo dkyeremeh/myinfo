@@ -5,10 +5,5 @@
   "repository": "git@github.com:dkyeremeh/txt-recon.git",
   "author": "Desmond Kyeremeh <elDekyfin@gmail.com>",
   "license": "MIT",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "services/*"
-    ]
-  }
+  "private": true
 }

@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "build", "migrations"]
+  "exclude": ["node_modules", "build", "migrations", "knexfile.ts"]
 }
