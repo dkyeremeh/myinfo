@@ -6,7 +6,7 @@
 
 build_image(){
     echo "Building $1 image"
-    docker build -f docker/Dockerfile.$1 -t eldekyfin/recon.$1:local services/$1
+    docker build -f docker/Dockerfile.$1 -t eldekyfin/recon.$1:latest services/$1
 }
 
 if [ -z "$1" ]; then 
