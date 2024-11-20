@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+##
+# A build script for building docker images
+##
+
+build_image(){
+    echo "Building $1 image"
+    docker build -f docker/Dockerfile.$1 -t eldekyfin/recon.$1:latest services/$1
+}
+
+if [ -z "$1" ]; then 
+    build_image account
+    build_image web
+    # build_image recognition
+else
+    build_image $1
+fi
