@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+push_image(){
+    echo "Pushing $1 to docker registry"
+    docker push eldekyfin/recon.$1:latest
+}
+
+if [ -z "$1" ]; then 
+    push_image account
+    push_image web
+    # build_image recognition
+else
+    push_image $1
+fi
