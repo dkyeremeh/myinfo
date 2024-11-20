@@ -12,6 +12,7 @@ spec:
       labels:
         app: recon-db
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: recon-db
           image: yobasystems/alpine-mariadb
@@ -21,6 +22,22 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: recon-config
+                  key: DB_NAME
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: recon-config
+                  key: DB_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: recon-config
+                  key: DB_PASS
 
 ---
 apiVersion: v1
