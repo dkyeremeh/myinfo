@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recon-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recon-db
+  template:
+    metadata:
+      labels:
+        app: recon-db
+    spec:
+      containers:
+        - name: recon-db
+          image: yobasystems/alpine-mariadb
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3306
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recon-db
+spec:
+  selector:
+    app: recon-db
+  ports:
+    - port: 3306
+      targetPort: 3306
