@@ -1,8 +1,11 @@
 dev: 
-	(cd services/account; yarn dev) & (cd services/web; yarn dev)
+	(cd services/auth; yarn dev) & (cd services/ui; yarn dev)
 
-run: 
+start: 
 	kubectl apply -f k8s
+
+stop: 
+	kubectl delete -f k8s
 
 build:
 	./scripts/build

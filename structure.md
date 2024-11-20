@@ -1,5 +1,5 @@
 ui
-    - account
+    - auth
         - signup
         - login
         - logou

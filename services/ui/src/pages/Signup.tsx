@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
-import api from '../utils/api';
+import auth from '../api/auth';
 import { TextField } from '@mui/material';
 
 const Signup: React.FC = () => {
   const [repassword, setRepassword] = useState('');
   const handleSignup = async (data: { email: string; password: string }) => {
     try {
-      const response = await api.post('/signup', { ...data, repassword });
+      const response = await auth.post('/signup', { ...data, repassword });
       console.log('Signup successful:', response.data);
     } catch (error) {
       console.error('Signup failed:', error);

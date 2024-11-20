@@ -1,11 +1,11 @@
 import React from 'react';
 import AuthForm from '../components/AuthForm';
-import api from '../utils/api';
+import auth from '../api/auth'
 
 const Login: React.FC = () => {
   const handleLogin = async (data: { email: string; password: string }) => {
     try {
-      const response = await api.post('/login', data);
+      const response = await auth.post('/login', data);
       console.log('Login successful:', response.data);
       localStorage.set('token', response.data.token);
     } catch (error) {

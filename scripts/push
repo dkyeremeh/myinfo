@@ -6,8 +6,8 @@ push_image(){
 }
 
 if [ -z "$1" ]; then 
-    push_image account
-    push_image web
+    push_image auth
+    push_image ui
     # build_image recognition
 else
     push_image $1

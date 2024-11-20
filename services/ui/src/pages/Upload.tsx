@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Box, Typography } from '@mui/material';
-import api from '../utils/api';
+import auth from '../api/auth';
 import ProtectedRoute from '../components/ProtectedRoutes';
 
 const Upload: React.FC = () => {
@@ -19,7 +19,7 @@ const Upload: React.FC = () => {
     formData.append('image', file);
 
     try {
-      const response = await api.post('/upload', formData, {
+      const response = await auth.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Upload successful:', response.data);
