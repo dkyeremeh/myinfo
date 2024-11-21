@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use('/auth',cors(), authRoutes);
 
-const PORT = process.env.PORT ?? 5001;
+const PORT = process.env.PORT ?? 5051;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

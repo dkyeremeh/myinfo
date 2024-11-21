@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+//@ts-expect-error mumbo jumbo
+const config = window.config;
+
 const api = axios.create({
-  baseURL: import.meta.env.ACCOUNT_API_URL ?? "http://localhost:5001/auth",
+  baseURL: config.authApiUrl,
   headers: {
     'Content-Type': 'application/json',
   },

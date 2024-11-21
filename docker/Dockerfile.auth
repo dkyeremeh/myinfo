@@ -1,6 +1,6 @@
 FROM node:lts-slim
 WORKDIR /var/app
-EXPOSE 5001
+EXPOSE 5051
 
 COPY package.json yarn.lock ./
 RUN yarn install
