@@ -12,7 +12,7 @@ const config = {
 app.use(express.static(staticFilesPath));
 
 app.get('/config.json', (_, res) => {
-  res.json(config);
+  res.send(`window.config = ${JSON.stringify(config)}`);
 });
 
 app.get('*', (req, res) => {
