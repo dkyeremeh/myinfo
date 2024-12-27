@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: recon-config
 data:
-  ACCOUNT_API_URL: http://localhost:30001
+  AUTH_API_URL: http://localhost:30001/auth
   # DB
   DB_HOST: recon-db
   DB_USER: db

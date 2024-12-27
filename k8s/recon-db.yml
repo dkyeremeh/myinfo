@@ -38,6 +38,13 @@ spec:
                 configMapKeyRef:
                   name: recon-config
                   key: DB_PASS
+          volumeMounts:
+            - name: recon-db-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: recon-db-data
+          hostPath:
+            path: /Users/desmondkyeremeh/Projects/masters/txt-recon/data/db
 
 ---
 apiVersion: v1
@@ -45,6 +52,7 @@ kind: Service
 metadata:
   name: recon-db
 spec:
+  type: ClusterIP
   selector:
     app: recon-db
   ports:
