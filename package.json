@@ -1,0 +1,21 @@
+{
+    "name": "txt-recon",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:dkyeremeh/txt-recon.git",
+    "author": "Desmond Kyeremeh <elDekyfin@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "services/*"
+        ]
+    },
+    "scripts": {
+        "dev": "./scripts/dev",
+        "start": "kubectl apply -f k8s",
+        "stop": "kubectl delete -f k8s",
+        "build": "./scripts/build",
+        "push": "./scripts/push"
+    }
+}
