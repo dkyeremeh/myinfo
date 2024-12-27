@@ -4,9 +4,10 @@
   "main": "build/app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node build/app.js",
+    "start": "yarn migrate; node build/app.js",
     "build": "tsc",
-    "dev": "yarn tsc --watch & yarn nodemon"
+    "migrate": "yarn knex migrate:latest",
+    "dev": "yarn migrate; yarn tsc --watch & yarn nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

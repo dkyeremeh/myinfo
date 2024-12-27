@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthForm from '../components/AuthForm';
-import auth from '../api/auth'
+import auth from '../api/auth';
 
 const Login: React.FC = () => {
   const handleLogin = async (data: { email: string; password: string }) => {
@@ -8,12 +8,25 @@ const Login: React.FC = () => {
       const response = await auth.post('/login', data);
       console.log('Login successful:', response.data);
       localStorage.set('token', response.data.token);
+      location.assign('/');
     } catch (error) {
       console.error('Login failed:', error);
     }
   };
 
-  return <AuthForm onSubmit={handleLogin} title="Login" />;
+  const bottomContent = (
+    <div>
+      Don't have an account? <a href="/signup">Signup</a>
+    </div>
+  );
+
+  return (
+    <AuthForm
+      onSubmit={handleLogin}
+      title="Login"
+      bottomContent={bottomContent}
+    ></AuthForm>
+  );
 };
 
 export default Login;

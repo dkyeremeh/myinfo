@@ -1,0 +1,14 @@
+. .env
+
+if ! docker container inspect recon-mysql-dev > /dev/null 2>&1; then
+    docker run -d -it  \
+        --name recon-mysql-dev \
+        -p 3306:3306 \
+        -v ./data/db.dev:/var/lib/mysql \
+        -e MYSQL_DATABASE=$DB_NAME \
+        -e MYSQL_USER=$DB_USER \
+        -e MYSQL_PASSWORD=$DB_PASS \
+        yobasystems/alpine-mariadb
+fi
+
+(cd services/auth; yarn dev) & (cd services/ui; yarn dev)

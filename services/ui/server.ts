@@ -1,12 +1,15 @@
 import express from 'express';
-import path from 'path';
+import path, { resolve } from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: resolve('../../.env') });
 
 const app = express();
 const PORT = process.env.PORT ?? 5050;
 const staticFilesPath = path.resolve('dist');
 
 const config = {
-  authApiUrl: process.env.AUTH_API_URL ?? 'http://localhost:5051/auth',
+  authApiUrl: process.env.AUTH_API_URL,
 };
 
 app.use(express.static(staticFilesPath));

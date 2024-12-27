@@ -1,13 +1,19 @@
 import React, { ReactNode, useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
 
-interface AuthFormProps {
+type AuthFormProps = {
   onSubmit: (data: { email: string; password: string }) => void;
   title: string;
   children?: ReactNode;
-}
+  bottomContent?: ReactNode;
+};
 
-const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, title, children }) => {
+const AuthForm: React.FC<AuthFormProps> = ({
+  onSubmit,
+  title,
+  children,
+  bottomContent,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -51,6 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, title, children }) => {
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
+        {bottomContent}
       </Box>
     </div>
   );

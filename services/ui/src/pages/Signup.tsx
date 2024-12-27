@@ -14,8 +14,18 @@ const Signup: React.FC = () => {
     }
   };
 
+  const bottomContent = (
+    <div>
+      Have an account? <a href="/login">Login</a>
+    </div>
+  );
+
   return (
-    <AuthForm onSubmit={handleSignup} title="Signup">
+    <AuthForm
+      onSubmit={handleSignup}
+      title="Signup"
+      bottomContent={bottomContent}
+    >
       <TextField
         label="Confirm Password"
         type="password"

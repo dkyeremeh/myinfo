@@ -8,6 +8,13 @@ export const signup = async (req: Request, res: Response) => {
   try {
     const { email, password } = await signupSchema.validate(req.body);
 
+    const [exists] = await db('users').where({ email });
+
+    if (exists) {
+      res.status(400).json('An account exists with this email');
+      return;
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const [userId] = await db('users').insert({
       email,
@@ -28,7 +35,8 @@ export const login = async (req: Request, res: Response) => {
     const user = await db('users').where({ email }).first();
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
