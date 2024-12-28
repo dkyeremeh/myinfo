@@ -3,17 +3,17 @@ import { db } from './utils/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { signupSchema } from './utils/schemas';
+import { httpErrorResponse, throwHttpError } from './utils/error';
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { email, password } = await signupSchema.validate(req.body);
+    const { email, password } = await signupSchema
+      .validate(req.body)
+      .catch(throwHttpError(400));
 
     const [exists] = await db('users').where({ email });
 
-    if (exists) {
-      res.status(400).json('An account exists with this email');
-      return;
-    }
+    if (exists) throwHttpError(400, 'An account exists with this email');
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const [userId] = await db('users').insert({
@@ -23,8 +23,7 @@ export const signup = async (req: Request, res: Response) => {
 
     res.status(201).json({ message: 'User created successfully', userId });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to create user' });
+    httpErrorResponse(res, err);
   }
 };
 
@@ -34,18 +33,16 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await db('users').where({ email }).first();
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      res.status(401).json({ error: 'Invalid credentials' });
-      return;
-    }
+    if (!user || !(await bcrypt.compare(password, user.password)))
+      throwHttpError(401, 'Invalid credentials');
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
+
     res.json({ message: 'Login successful', token });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to log in' });
+    httpErrorResponse(res, err);
   }
 };
 

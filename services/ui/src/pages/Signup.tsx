@@ -9,6 +9,7 @@ const Signup: React.FC = () => {
     try {
       const response = await auth.post('/signup', { ...data, repassword });
       console.log('Signup successful:', response.data);
+      window.location.assign('/login');
     } catch (error) {
       console.error('Signup failed:', error);
     }
