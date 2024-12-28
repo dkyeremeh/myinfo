@@ -8,6 +8,7 @@ if ! docker container inspect recon-mysql-dev > /dev/null 2>&1; then
         -e MYSQL_DATABASE=$DB_NAME \
         -e MYSQL_USER=$DB_USER \
         -e MYSQL_PASSWORD=$DB_PASS \
+        -e MYSQL_ROOT_PASSWORD=$DB_PASS \
         yobasystems/alpine-mariadb
 fi
 
