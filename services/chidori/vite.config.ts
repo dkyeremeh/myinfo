@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   root: 'ui', // Specify the directory containing the index.html
   build: {
-    outDir: '../dist', // Output directory relative to the root
+    outDir: '../build.ui', // Output directory relative to the root
   },
 });

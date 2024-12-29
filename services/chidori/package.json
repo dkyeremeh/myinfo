@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node build.server/server.js",
     "dev": "vite build --watch & yarn tsc -b --watch & yarn nodemon",
     "build": "tsc -b && vite build",
     "lint": "eslint ."

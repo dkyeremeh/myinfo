@@ -9,7 +9,8 @@ lerna-debug.log*
 
 /server
 node_modules
-dist
+build.ui
+build.server
 dist-ssr
 *.local
 

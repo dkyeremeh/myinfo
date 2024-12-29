@@ -6,7 +6,7 @@ dotenv.config({ path: resolve('../../.env') });
 
 const app = express();
 const PORT = process.env.PORT ?? 5050;
-const staticFilesPath = path.resolve('dist');
+const staticFilesPath = path.resolve('build.ui');
 
 const config = {
   authApiUrl: process.env.AUTH_API_URL,
