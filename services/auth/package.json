@@ -1,7 +1,7 @@
 {
   "name": "auth",
   "version": "1.0.0",
-  "main": "build/app.js",
+  "main": "build.server/app.js",
   "license": "MIT",
   "scripts": {
     "start": "yarn migrate; node build/app.js",
