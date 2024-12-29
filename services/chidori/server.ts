@@ -10,6 +10,7 @@ const staticFilesPath = path.resolve('dist');
 
 const config = {
   authApiUrl: process.env.AUTH_API_URL,
+  reconApiUrl: process.env.RECON_API_URL,
 };
 
 app.use(express.static(staticFilesPath));

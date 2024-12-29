@@ -7,7 +7,7 @@ push_image(){
 
 if [ -z "$1" ]; then 
     push_image auth
-    push_image ui
+    push_image chidori
     # build_image recognition
 else
     push_image $1

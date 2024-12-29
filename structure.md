@@ -1,4 +1,4 @@
-ui
+chidori
     - auth
         - signup
         - login

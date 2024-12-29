@@ -11,7 +11,7 @@ build_image(){
 
 if [ -z "$1" ]; then 
     build_image auth
-    build_image ui
+    build_image chidori
     # build_image recognition
 else
     build_image $1
