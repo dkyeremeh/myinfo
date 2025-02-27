@@ -1,4 +1,4 @@
-chidori
+recon-ui
     - auth
         - signup
         - login
