@@ -21,5 +21,5 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT ?? 5051;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Auth UI is running on http://localhost:${PORT}`);
 });

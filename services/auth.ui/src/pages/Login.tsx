@@ -1,45 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthForm from '../components/AuthForm';
-import auth from '../api/auth';
-
-const handleLogin = async (data: { email: string; password: string }) => {
-  try {
-    const response = await auth.post('/login', data);
-    localStorage.token = response.data.token;
-    window.parent.postMessage({
-      action: 'LOGIN_SUCCESSFUL',
-      token: response.data.token,
-    });
-  } catch (error) {
-    window.parent.postMessage({
-      action: 'LOGIN_FAILED',
-      error,
-    });
-
-    console.error('Login failed:', error);
-  }
-};
+import { login } from '../utils/api';
+import { getIsLoggedIn, postAuthStatus } from '../utils/auth';
 
 const Login: React.FC = () => {
-  useEffect(() => {
-    if (localStorage.token)
-      window.parent.postMessage({
-        action: 'LOGIN_SUCCESSFUL',
-        token: localStorage.token,
-      });
-  }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(getIsLoggedIn());
+  const onLoginSuccess = () => setIsLoggedIn;
 
-  const bottomContent = (
-    <div>
-      Don't have an account? <a href="/signup">Signup</a>
-    </div>
-  );
+  useEffect(postAuthStatus, []);
 
-  return (
+  return isLoggedIn ? (
+    <div>You are logged in</div>
+  ) : (
     <AuthForm
-      onSubmit={handleLogin}
+      onSubmit={(data) => login(data, onLoginSuccess)}
       title="Login"
-      bottomContent={bottomContent}
+      bottomContent={
+        <div>
+          Don't have an account? <a href="/signup">Signup</a>
+        </div>
+      }
     ></AuthForm>
   );
 };

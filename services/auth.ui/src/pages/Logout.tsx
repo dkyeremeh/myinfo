@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import { logout, postAuthStatus } from '../utils/auth';
 
 const Logout: React.FC = () => {
   useEffect(() => {
-    window.parent.postMessage({ action: 'LOGOUT_SUCCESSFUL' });
-    location.assign('/login');
+    logout();
+
+    postAuthStatus('LOGGED_OUT');
+    location.replace('/login');
   }, []);
   return <div>Logging out</div>;
 };

@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
-import auth from '../api/auth';
 import { TextField } from '@mui/material';
+import { signup } from '../utils/api';
 
+type SignupResponse = Partial<Awaited<ReturnType<typeof signup>>>;
 const Signup: React.FC = () => {
+  const [response, setResponse] = useState<SignupResponse>({});
   const [repassword, setRepassword] = useState('');
-  const handleSignup = async (data: { email: string; password: string }) => {
-    try {
-      const response = await auth.post('/signup', { ...data, repassword });
-      console.log('Signup successful:', response.data);
-      window.location.assign('/login');
-    } catch (error) {
-      console.error('Signup failed:', error);
-    }
+
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const res = await signup({ ...data, repassword });
+    setResponse(res);
+    // setMessage(msg)
   };
 
   const bottomContent = (
     <div>
       Have an account? <a href="/login">Login</a>
+      <div>{response.msg}</div>
     </div>
   );
 
   return (
-    <AuthForm
-      onSubmit={handleSignup}
-      title="Signup"
-      bottomContent={bottomContent}
-    >
+    <AuthForm onSubmit={onSubmit} title="Signup" bottomContent={bottomContent}>
       <TextField
         label="Confirm Password"
         type="password"

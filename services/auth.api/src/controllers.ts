@@ -22,7 +22,7 @@ export const signup = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    res.status(201).json({ message: 'User created successfully', userId });
+    res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
     httpErrorResponse(res, err);
   }
@@ -41,7 +41,7 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
 
-    res.json({ message: 'Login successful', token });
+    res.json({ msg: 'Login successful', token });
   } catch (err) {
     httpErrorResponse(res, err);
   }
@@ -49,5 +49,5 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   // Usually, logout involves token management on the client side
-  res.json({ message: 'Logged out successfully' });
+  res.json({ msg: 'Logged out successfully' });
 };
