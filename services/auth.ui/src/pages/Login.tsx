@@ -6,9 +6,16 @@ const Login: React.FC = () => {
   const handleLogin = async (data: { email: string; password: string }) => {
     try {
       const response = await auth.post('/login', data);
-      localStorage.setItem('token', response.data.token);
-      location.assign('/');
+      window.parent.postMessage({
+        action: 'LOGIN_SUCCESSFUL',
+        token: response.data.token
+      })
     } catch (error) {
+      window.parent.postMessage({
+        action: 'LOGIN_FAILED',
+        error,
+      })
+
       console.error('Login failed:', error);
     }
   };
