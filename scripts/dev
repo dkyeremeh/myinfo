@@ -13,5 +13,4 @@ if ! docker container inspect recon-mysql-dev > /dev/null 2>&1; then
 fi
 
 (cd services/auth.ui; yarn dev) &   \
-(cd services/auth.api; yarn dev) &  \
-(cd services/chidori; yarn dev)
+(cd services/auth.api; yarn dev) &  wait

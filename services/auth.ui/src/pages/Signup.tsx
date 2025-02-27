@@ -17,7 +17,9 @@ const Signup: React.FC = () => {
   const bottomContent = (
     <div>
       Have an account? <a href="/login">Login</a>
-      <div>{response.msg}</div>
+      {!response.success && (
+        <div style={{ marginTop: '1em', color: '#c22' }}>{response.msg}</div>
+      )}
     </div>
   );
 

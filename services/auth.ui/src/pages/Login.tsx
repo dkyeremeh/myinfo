@@ -5,12 +5,15 @@ import { getIsLoggedIn, postAuthStatus } from '../utils/auth';
 
 const Login: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(getIsLoggedIn());
-  const onLoginSuccess = () => setIsLoggedIn;
+  const onLoginSuccess = () => setIsLoggedIn(true);
 
   useEffect(postAuthStatus, []);
 
   return isLoggedIn ? (
-    <div>You are logged in</div>
+    <div>
+      <p>You are logged in!</p>
+      <a href="/logout">Logout</a>
+    </div>
   ) : (
     <AuthForm
       onSubmit={(data) => login(data, onLoginSuccess)}
