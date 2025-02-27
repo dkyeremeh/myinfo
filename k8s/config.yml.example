@@ -9,5 +9,5 @@ data:
   DB_USER: db
   DB_PASS: yourpassword
   DB_NAME: db
-  JWT_SECRET: s0mes3cre5
   DB_DATA_PATH: /absolute/path/to/db/data
+  JWT_SECRET: s0mes3cre5
