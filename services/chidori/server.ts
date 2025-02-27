@@ -15,7 +15,7 @@ const config = {
 
 app.use(express.static(staticFilesPath));
 
-app.get('/config.json', (_, res) => {
+app.get('/config.js', (_, res) => {
   res.send(`window.config = ${JSON.stringify(config)}`);
 });
 

@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AuthForm from '../components/AuthForm';
 import auth from '../api/auth';
 
+const handleLogin = async (data: { email: string; password: string }) => {
+  try {
+    const response = await auth.post('/login', data);
+    localStorage.token = response.data.token;
+    window.parent.postMessage({
+      action: 'LOGIN_SUCCESSFUL',
+      token: response.data.token,
+    });
+  } catch (error) {
+    window.parent.postMessage({
+      action: 'LOGIN_FAILED',
+      error,
+    });
+
+    console.error('Login failed:', error);
+  }
+};
+
 const Login: React.FC = () => {
-  const handleLogin = async (data: { email: string; password: string }) => {
-    try {
-      const response = await auth.post('/login', data);
+  useEffect(() => {
+    if (localStorage.token)
       window.parent.postMessage({
         action: 'LOGIN_SUCCESSFUL',
-        token: response.data.token
-      })
-    } catch (error) {
-      window.parent.postMessage({
-        action: 'LOGIN_FAILED',
-        error,
-      })
-
-      console.error('Login failed:', error);
-    }
-  };
+        token: localStorage.token,
+      });
+  }, []);
 
   const bottomContent = (
     <div>
