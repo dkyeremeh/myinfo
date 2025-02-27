@@ -1,13 +1,13 @@
 {
-  "name": "auth",
+  "name": "auth.api",
   "version": "1.0.0",
-  "main": "build.server/app.js",
+  "main": "build/app.js",
   "license": "MIT",
   "scripts": {
-    "start": "yarn migrate; node build/app.js",
-    "build": "vite build --watch & yarn tsc",
+    "start": "node build/app.js",
+    "build": "yarn tsc",
     "migrate": "yarn knex migrate:latest",
-    "dev": "yarn migrate; vite build --watch & yarn tsc -b --watch & yarn nodemon"
+    "dev": "yarn migrate; yarn tsc -b --watch & yarn nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

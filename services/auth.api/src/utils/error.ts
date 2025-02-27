@@ -11,6 +11,7 @@ export const throwHttpError =
       logger.error(err);
       error.message = unexpectedErrorMsg;
     }
+
     throw error;
   };
 
@@ -18,8 +19,6 @@ export const httpErrorResponse = (
   res: Response,
   err: Error | HttpError | unknown
 ) => {
-  console.error(err)
-  
   if (err instanceof HttpError) {
     res.status(err.status).json({ error: err.message });
   } else res.status(500).json({ error: 'Unexpected Error!' });

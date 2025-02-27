@@ -12,4 +12,6 @@ if ! docker container inspect recon-mysql-dev > /dev/null 2>&1; then
         mariadb
 fi
 
-(cd services/auth; yarn dev) & (cd services/chidori; yarn dev)
+(cd services/auth.ui; yarn dev) &   \
+(cd services/auth.api; yarn dev) &  \
+(cd services/chidori; yarn dev)

@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { signupSchema } from './utils/schemas';
 import { httpErrorResponse, throwHttpError } from './utils/error';
+import HttpError from './utils/HttpError';
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -13,7 +14,7 @@ export const signup = async (req: Request, res: Response) => {
 
     const [exists] = await db('users').where({ email });
 
-    if (exists) throwHttpError(400, 'An account exists with this email');
+    if (exists) throw new HttpError(400, 'An account exists with this email');
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const [userId] = await db('users').insert({
@@ -34,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
     const user = await db('users').where({ email }).first();
 
     if (!user || !(await bcrypt.compare(password, user.password)))
-      throwHttpError(401, 'Invalid credentials');
+      throw new HttpError(401, 'Invalid credentials');
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
