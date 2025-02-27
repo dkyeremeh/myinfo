@@ -4,15 +4,17 @@ import authRoutes from './routes';
 import cors from 'cors';
 import { join, resolve } from 'path';
 
-dotenv.config({ path: resolve('../../.env') });
 const staticFilesPath = resolve('build.ui');
 
 const app = express();
 
-app.get('*', (req, res) => {
+// Ui
+app.use(express.static(staticFilesPath));
+app.get('*', (_, res) => {
   res.sendFile(join(staticFilesPath, 'index.html'));
 });
 
+// Api
 app.use(express.json());
 app.use('/api', cors(), authRoutes);
 

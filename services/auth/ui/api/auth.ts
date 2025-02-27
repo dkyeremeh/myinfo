@@ -4,7 +4,7 @@ import axios from 'axios';
 const config = window.config;
 
 const api = axios.create({
-  baseURL: config.authApiUrl,
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },

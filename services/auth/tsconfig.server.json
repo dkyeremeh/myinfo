@@ -8,5 +8,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "build.server", "migrations", "knexfile.ts"]
+  "exclude": [
+    "node_modules",
+    "build.server",
+    "migrations",
+    "knexfile.ts",
+    "ui",
+    "vite.config.ts"
+  ]
 }
