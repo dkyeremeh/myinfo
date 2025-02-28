@@ -6,12 +6,14 @@ type AuthFormProps = {
   title: string;
   children?: ReactNode;
   bottomContent?: ReactNode;
+  topContent?: ReactNode;
 };
 
 const AuthForm: React.FC<AuthFormProps> = ({
   onSubmit,
   title,
   children,
+  topContent,
   bottomContent,
 }) => {
   const [email, setEmail] = useState('');
@@ -39,6 +41,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <Typography variant="h5" align="center">
           {title}
         </Typography>
+        {topContent}
         <TextField
           label="Email"
           type="email"

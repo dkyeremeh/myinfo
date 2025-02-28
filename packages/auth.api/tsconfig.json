@@ -8,10 +8,7 @@
     "outDir": "./build",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "paths": {
-      "shared/*": ["../../shared/build/*"]
-    }
+    "skipLibCheck": true
   },
 
   "exclude": [

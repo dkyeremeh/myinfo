@@ -10,7 +10,7 @@ services:
     env_file: .env
     volumes:
       - ./packages/auth.ui:/var/app:delegated
-      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules
     depends_on:
       - auth.api
     ports:
@@ -18,17 +18,18 @@ services:
 
   auth.api:
     build:
-      context: "./packages/auth.api"
-      dockerfile: "../../docker/Dockerfile.dev"
+      context: .
+      dockerfile: "docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./packages/auth.api/:/var/app:delegated
-      - ./node_modules:/var/app/node_modules
+      - ./packages/auth.api/:/var/app
+      - /var/app/node_modules  # Mount node_modules from the container itself
     # depends_on:
     #   - redis
     ports:
       - 5052:5052
+
 
   db:
     image: yobasystems/alpine-mariadb
@@ -58,19 +59,19 @@ services:
     env_file: .env
     volumes:
       - ./packages/myinfo.ui:/var/app:delegated
-      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules
     depends_on:
-      - scanner
+      - myinfo.api
     ports:
       - 5050:5050
 
-  scanner:
+  myinfo.api:
     build:
-      context: "./packages/scanner"
+      context: "./packages/myinfo.api"
       dockerfile: "../../docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./packages/scanner:/var/app:delegated
-      - ./node_modules:/var/app/node_modules
+      - ./packages/myinfo.api:/var/app:delegated
+      - /var/app/node_modules
 

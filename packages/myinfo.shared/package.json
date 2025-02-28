@@ -2,9 +2,14 @@
   "name": "myinfo.shared",
   "version": "1.0.0",
   "license": "MIT",
+  "exports": {
+    "./*.js": "./*.js",
+    "./*": "./build/*.js"
+  },
   "scripts": {
-    "watch": "yarn tsc -b --watch",
-    "build": "yarn tsc --clean"
+    "migrate": "knex migrate:latest",
+    "watch": "tsc -b --watch",
+    "build": "tsc -b"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

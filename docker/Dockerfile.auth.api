@@ -1,10 +1,11 @@
 FROM node:lts-slim
 WORKDIR /var/app
 
-COPY package.json yarn.lock ./
+COPY packages/auth.api/package.json ./
 RUN yarn install
 
-COPY . .
+COPY packages/shared node_modules/shared
+COPY packages/auth.api . 
 
 RUN yarn build; \
     rm -rf src

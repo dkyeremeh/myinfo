@@ -40,6 +40,7 @@ export const signup = async (data: {
   email: string;
   password: string;
   repassword: string;
+  name: string;
 }) => {
   try {
     const response = await api.post('/signup', data);

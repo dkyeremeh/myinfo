@@ -6,12 +6,12 @@
 
 build_image(){
     echo "Building $1 image"
-    docker build -f docker/Dockerfile.$1 -t eldekyfin/recon.$1:latest services/$1
+    docker build -f docker/Dockerfile.$1 -t eldekyfin/$1:latest .
 }
 
 if [ -z "$1" ]; then 
-    build_image auth
-    build_image chidori
+    build_image auth.api
+    build_image auth.ui
     # build_image recognition
 else
     build_image $1
