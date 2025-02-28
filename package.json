@@ -18,7 +18,7 @@
         "dev": "./scripts/dev",
         "start": "kubectl apply -f k8s",
         "stop": "kubectl delete -f k8s",
-        "build": "./scripts/build",
+        "image": "./scripts/build",
         "push": "./scripts/push"
     }
 }

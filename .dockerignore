@@ -1,0 +1,5 @@
+# Ignore everything in node_modules
+node_modules/
+
+# Except for the shared folder
+!node_modules/shared/

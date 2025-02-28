@@ -6,7 +6,7 @@
 
 build_image(){
     echo "Building $1 image"
-    docker build -f docker/Dockerfile.$1 -t eldekyfin/$1:latest .
+    docker build -f docker/Dockerfile.prod -t eldekyfin/$1:latest --build-arg APP=$1 ./
 }
 
 if [ -z "$1" ]; then 

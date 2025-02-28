@@ -10,7 +10,8 @@ services:
     env_file: .env
     volumes:
       - ./packages/auth.ui:/var/app:delegated
-      - /var/app/node_modules
+      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules/shared
     depends_on:
       - auth.api
     ports:
@@ -23,8 +24,9 @@ services:
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./packages/auth.api/:/var/app
-      - /var/app/node_modules  # Mount node_modules from the container itself
+      - ./packages/auth.api/:/var/app 
+      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules/shared  # Mount node_modules from the container itself
     # depends_on:
     #   - redis
     ports:
@@ -43,15 +45,6 @@ services:
     volumes:
       - "./data/db.dev:/var/lib/mysql"
 
-  # redis:
-  #   image: redis:6-alpine
-  #   command: redis-server --save 60 1 --loglevel warning
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli", "ping"]
-  #     interval: 5s
-  #     timeout: 5s
-  #     retries: 10
-
   rabbit:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -69,7 +62,8 @@ services:
     env_file: .env
     volumes:
       - ./packages/myinfo.ui:/var/app:delegated
-      - /var/app/node_modules
+      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules/shared
     depends_on:
       - myinfo.api
     ports:
@@ -83,7 +77,8 @@ services:
     env_file: .env
     volumes:
       - ./packages/myinfo.api:/var/app:delegated
-      - /var/app/node_modules
+      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules/shared
     ports:
       - 5053:5053
     depends_on:
@@ -97,7 +92,8 @@ services:
     env_file: .env
     volumes:
       - ./packages/myinfo.scanner:/var/app:delegated
-      - /var/app/node_modules
+      - ./node_modules:/var/app/node_modules
+      - /var/app/node_modules/shared
     depends_on:
       - rabbit
 

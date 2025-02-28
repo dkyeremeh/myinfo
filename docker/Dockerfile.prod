@@ -1,14 +1,15 @@
 FROM node:lts-slim
 WORKDIR /var/app
+ARG APP
 
-COPY packages/auth.api/package.json ./
+COPY packages/${APP}/package.json ./
 RUN yarn install
 
 COPY packages/shared node_modules/shared
-COPY packages/auth.api . 
+COPY packages/shared shared
+COPY packages/${APP} . 
 
 RUN yarn build; \
     rm -rf src
 
-EXPOSE 5052
 CMD [ "yarn", "start" ]
