@@ -1,5 +1,5 @@
 {
-    "name": "txt-recon",
+    "name": "myinfo",
     "version": "1.0.0",
     "main": "index.js",
     "repository": "git@github.com:dkyeremeh/txt-recon.git",
@@ -8,7 +8,7 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "services/*"
+            "packages/*"
         ]
     },
     "scripts": {

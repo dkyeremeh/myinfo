@@ -4,12 +4,12 @@ version: '3.8'
 services:
   auth.ui: 
     build:
-      context: "./services/auth.ui"
+      context: "./packages/auth.ui"
       dockerfile: "../../docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./services/auth.ui:/var/app:delegated
+      - ./packages/auth.ui:/var/app:delegated
       - ./node_modules:/var/app/node_modules
     depends_on:
       - auth.api
@@ -18,12 +18,12 @@ services:
 
   auth.api:
     build:
-      context: "./services/auth.api"
+      context: "./packages/auth.api"
       dockerfile: "../../docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./services/auth.api/:/var/app:delegated
+      - ./packages/auth.api/:/var/app:delegated
       - ./node_modules:/var/app/node_modules
     # depends_on:
     #   - redis
@@ -50,27 +50,27 @@ services:
       retries: 10
 
 
-  checker.ui: 
+  myinfo.ui: 
     build:
-      context: "./services/auth.ui"
+      context: "./packages/auth.ui"
       dockerfile: "../../docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./services/checker.ui:/var/app:delegated
+      - ./packages/myinfo.ui:/var/app:delegated
       - ./node_modules:/var/app/node_modules
     depends_on:
-      - checker
+      - scanner
     ports:
       - 5050:5050
 
-  checker:
+  scanner:
     build:
-      context: "./services/checker"
+      context: "./packages/scanner"
       dockerfile: "../../docker/Dockerfile.dev"
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./services/checker:/var/app:delegated
+      - ./packages/scanner:/var/app:delegated
       - ./node_modules:/var/app/node_modules
 

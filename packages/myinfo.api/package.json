@@ -1,0 +1,27 @@
+{
+  "name": "myinfo.api",
+  "version": "1.0.0",
+  "main": "build/app.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/app.js",
+    "build": "yarn tsc",
+    "migrate": "yarn knex migrate:latest",
+    "watch": "yarn tsc -b --watch",
+    "dev": "yarn migrate; yarn nodemon"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.9.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}

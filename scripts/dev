@@ -1,7 +1,7 @@
 #!/bin/sh
 
-(cd services/auth.ui; yarn watch) &     \
-(cd services/auth.api; yarn watch) &    \
-(cd services/checker.ui; yarn watch) &  \
-(cd services/checker; yarn watch) &     \
+(cd packages/auth.ui; yarn watch) &     \
+(cd packages/auth.api; yarn watch) &    \
+(cd packages/myinfo.ui; yarn watch) &  \
+(cd packages/scanner; yarn watch) &     \
 docker-compose up & wait
