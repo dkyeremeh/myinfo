@@ -1,12 +1,28 @@
 import amqplib from 'amqplib';
+import { delay } from './utils';
 
 let connection: amqplib.Connection;
 let channel: amqplib.Channel;
 
+const rabbitUser = process.env.RABBITMQ_DEFAULT_USER;
+const rabbitPass = process.env.RABBITMQ_DEFAULT_PASS;
+const rabbitHost = process.env.RABBITMQ_HOST;
+
+const con = async () => {
+  connection = await amqplib.connect(
+    `amqp://${rabbitUser}:${rabbitPass}@${rabbitHost}`
+  );
+  channel = await connection.createChannel();
+};
+
 const connect = async () => {
   if (connection) return;
-  connection = await amqplib.connect('amqp://user:password@rabbitmq');
-  channel = await connection.createChannel();
+  while (!connection) {
+    await con().catch(() =>
+      console.log('cannot connect to rabbitmq, will try again')
+    );
+    await delay(5e3);
+  }
 };
 
 export const sendMessage = async (
@@ -14,6 +30,7 @@ export const sendMessage = async (
   message: Record<string, any>
 ) => {
   try {
+    if (!connection) await connect();
     await channel.assertQueue(queue);
     channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
 
@@ -31,6 +48,7 @@ export const consumeMessages = async (
   fn: (msg: Record<string, any>) => void
 ) => {
   try {
+    if (!connection) await connect();
     await channel.assertQueue(queue);
 
     console.log(`📥 Waiting for messages in ${queue}`);
@@ -48,5 +66,3 @@ export const consumeMessages = async (
     console.error('Error:', err);
   }
 };
-
-connect();

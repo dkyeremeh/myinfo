@@ -14,6 +14,6 @@ docker-compose build auth.api # We use the same image for all dev services
 # # myinfo
 # (cd packages/myinfo.ui; yarn watch) &  \
 # (cd packages/myinfo.api; yarn watch) &      \
-(cd packages/myinfo.scanner; yarn watch) &     \
+# (cd packages/myinfo.scanner; yarn watch) &     \
 
 docker-compose up & wait

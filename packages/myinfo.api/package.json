@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/app.js",
-    "build": "tsc -b --clean",
+    "build": "tsc -b",
     "migrate": "yarn knex migrate:latest",
     "watch": "tsc -b --watch",
     "dev": "yarn migrate; yarn nodemon"
