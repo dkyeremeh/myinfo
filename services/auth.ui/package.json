@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "vite build --watch & yarn tsc -b --watch & yarn nodemon",
+    "watch": "vite build --watch & yarn tsc -b --watch ",
+    "dev": "node server.js",
     "build": "tsc -b && vite build"
   },
   "dependencies": {

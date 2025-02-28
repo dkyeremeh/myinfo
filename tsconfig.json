@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".", // Root of your monorepo
+    "moduleResolution": "node",
+    "target": "ES6",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["packages/**/*"], // Adjust this based on where your packages are located
+  "exclude": ["node_modules"]
+}

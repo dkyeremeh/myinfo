@@ -1,16 +1,6 @@
-. .env
+#!/bin/sh
 
-if ! docker container inspect recon-mysql-dev > /dev/null 2>&1; then
-    docker run -d -it  \
-        --name recon-mysql-dev \
-        -p 3306:3306 \
-        -v ./data/db.dev:/var/lib/mysql \
-        -e MYSQL_DATABASE=$DB_NAME \
-        -e MYSQL_USER=$DB_USER \
-        -e MYSQL_PASSWORD=$DB_PASS \
-        -e MYSQL_ROOT_PASSWORD=$DB_PASS \
-        mariadb
-fi
-
-(cd services/auth.ui; yarn dev) &   \
-(cd services/auth.api; yarn dev) &  wait
+(cd services/auth.ui; yarn watch) &     \
+(cd services/auth.api; yarn watch) &    \
+(cd services/checker; yarn watch) &    \
+docker-compose up & wait

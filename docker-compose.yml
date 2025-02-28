@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  auth.ui: 
+    build:
+      context: "./services/auth.ui"
+      dockerfile: "../../docker/Dockerfile.dev"
+    image: eldekyfin/auth.ui
+    env_file: .env
+    volumes:
+      - ./services/auth.ui:/var/app:delegated
+      - ./node_modules:/var/app/node_modules
+    depends_on:
+      - auth.api
+    ports:
+      - 5051:5051
+
+  auth.api:
+    build:
+      context: "./services/auth.api"
+      dockerfile: "../../docker/Dockerfile.dev"
+    image: eldekyfin/auth.ui
+    env_file: .env
+    volumes:
+      - ./services/auth.api/:/var/app:delegated
+      - ./node_modules:/var/app/node_modules
+    # depends_on:
+    #   - redis
+    ports:
+      - 5052:5052
+
+  auth.db:
+    image: yobasystems/alpine-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - "./data/db.dev:/var/lib/mysql"
+
+  redis:
+    image: redis:6-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+
+  checker:
+    build:
+      context: "./services/checker"
+      dockerfile: "../../docker/Dockerfile.dev"
+    image: eldekyfin/checker
+    env_file: .env
+    volumes:
+      - ./services/checker:/var/app:delegated
+      - ./node_modules:/var/app/node_modules
+

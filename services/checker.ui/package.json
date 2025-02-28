@@ -1,13 +1,14 @@
 {
-  "name": "chidori",
+  "name": "checker.ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "server.js",
   "scripts": {
-    "start": "node build.server/server.js",
-    "dev": "vite build --watch & yarn tsc -b --watch & yarn nodemon",
-    "build": "tsc -b && vite build",
-    "lint": "eslint ."
+    "start": "node server.js",
+    "watch": "vite build --watch & yarn tsc -b --watch ",
+    "dev": "node server.js",
+    "build": "tsc -b && vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

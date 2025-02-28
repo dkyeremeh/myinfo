@@ -1,0 +1,7 @@
+FROM node:lts-slim
+WORKDIR /var/app
+
+CMD [ "yarn", "dev" ]
+
+
+

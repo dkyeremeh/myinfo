@@ -6,6 +6,8 @@ import { signupSchema } from './utils/schemas';
 import { httpErrorResponse, throwHttpError } from './utils/error';
 import HttpError from './utils/HttpError';
 
+import { publish } from './pubSub';
+
 export const signup = async (req: Request, res: Response) => {
   try {
     const { email, password } = await signupSchema
@@ -21,6 +23,8 @@ export const signup = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
     });
+
+    publish('auth.signup', JSON.stringify({ email }));
 
     res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
@@ -41,6 +45,7 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
 
+    publish('auth.login', JSON.stringify({ email }));
     res.json({ msg: 'Login successful', token });
   } catch (err) {
     httpErrorResponse(res, err);

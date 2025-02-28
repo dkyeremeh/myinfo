@@ -1,6 +1,5 @@
 FROM node:lts-slim
 WORKDIR /var/app
-EXPOSE 5051
 
 COPY package.json yarn.lock ./
 RUN yarn install
@@ -10,4 +9,5 @@ COPY . .
 RUN yarn build; \
     rm -rf src
 
+EXPOSE 5051
 CMD [ "yarn", "start" ]
