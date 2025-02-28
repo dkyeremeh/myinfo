@@ -3,7 +3,7 @@ WORKDIR /var/app
 
 COPY node_modules node_modules
 
-RUN rm -rf node_modules/shared
+RUN rm -rf node_modules/shared 
 COPY  packages/shared node_modules/shared
 
 CMD [ "yarn", "dev" ]

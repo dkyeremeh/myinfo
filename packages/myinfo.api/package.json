@@ -5,14 +5,15 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/app.js",
-    "build": "tsc",
-    "migrate": "yarn workspace myinfo.shared migrate",
+    "build": "tsc -b --clean",
+    "migrate": "yarn knex migrate:latest",
     "watch": "tsc -b --watch",
     "dev": "yarn migrate; yarn nodemon"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "knex": "^3.1.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {

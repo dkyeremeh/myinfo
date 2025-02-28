@@ -9,10 +9,11 @@ export async function up(knex) {
     table.string('email').notNullable().unique();
   });
 
-  await knex.schema.createTable('user_images', (table) => {
+  await knex.schema.createTable('user_info', (table) => {
     table.increments('id').primary();
     table.integer('user').index().notNullable().references('users.id');
-    table.string('image').notNullable();
+    table.string('url').notNullable();
+    table.text('data').notNullable();
   });
 }
 
@@ -21,6 +22,6 @@ export async function up(knex) {
  * @returns { Promise<void> }
  */
 export async function down(knex) {
-  await knex.schema.dropTable('user_images');
+  await knex.schema.dropTable('user_info');
   await knex.schema.dropTable('users');
 }

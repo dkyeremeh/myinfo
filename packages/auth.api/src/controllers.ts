@@ -6,7 +6,7 @@ import { signupSchema } from './utils/schemas';
 import { httpErrorResponse, throwHttpError } from './utils/error';
 import HttpError from './utils/HttpError';
 
-import { publish } from 'shared/build/pubSub.js';
+import { sendMessage } from 'shared/build/streams.js';
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -25,7 +25,7 @@ export const signup = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    publish('auth.signup', JSON.stringify({ email, name, id: userId }));
+    sendMessage('auth.signup', { email, name, id: userId });
 
     res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
@@ -44,11 +44,11 @@ export const login = async (req: Request, res: Response) => {
 
     delete user.password;
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+    const token = jwt.sign(user, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
 
-    publish('auth.login', JSON.stringify(user));
+    sendMessage('auth.login', user);
 
     res.json({ msg: 'Login successful', token });
   } catch (err) {

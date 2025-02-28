@@ -50,6 +50,15 @@ services:
       timeout: 5s
       retries: 10
 
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    # ports:
+    #   - "5672:5672"  # AMQP protocol port
+    #   - "15672:15672"  # Management UI
+    env_file: .env
+      
+
 
   myinfo.ui: 
     build:
@@ -74,4 +83,6 @@ services:
     volumes:
       - ./packages/myinfo.api:/var/app:delegated
       - /var/app/node_modules
+    ports:
+      - 5053:5053
 
