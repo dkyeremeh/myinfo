@@ -10,7 +10,7 @@ import { publish } from './pubSub';
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { email, password } = await signupSchema
+    const { email, password, name } = await signupSchema
       .validate(req.body)
       .catch(throwHttpError(400));
 
@@ -21,10 +21,11 @@ export const signup = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const [userId] = await db('users').insert({
       email,
+      name,
       password: hashedPassword,
     });
 
-    publish('auth.signup', JSON.stringify({ email, id: userId }));
+    publish('auth.signup', JSON.stringify({ email, name, id: userId }));
 
     res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
@@ -41,11 +42,14 @@ export const login = async (req: Request, res: Response) => {
     if (!user || !(await bcrypt.compare(password, user.password)))
       throw new HttpError(401, 'Invalid credentials');
 
+    delete user.password;
+
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
 
-    publish('auth.login', JSON.stringify({ email, id: user.id }));
+    publish('auth.login', JSON.stringify(user));
+
     res.json({ msg: 'Login successful', token });
   } catch (err) {
     httpErrorResponse(res, err);
