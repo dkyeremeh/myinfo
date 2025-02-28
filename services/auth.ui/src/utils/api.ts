@@ -23,10 +23,14 @@ export const login = async (
 
     onSuccess?.(response.data.token);
   } catch (error) {
-    window.parent.postMessage({
-      action: 'LOGIN_FAILED',
-      error,
-    });
+    window.parent.postMessage(
+      {
+        action: 'LOGIN_FAILED',
+        error,
+      },
+      // @ts-ignore
+      window.config.parentHost
+    );
 
     console.error('Login failed:', error);
   }

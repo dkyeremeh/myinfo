@@ -1,14 +1,14 @@
 import { resolve } from 'path';
 import express from 'express';
-import dotenv from 'dotenv';
 
 const app = express();
 
-dotenv.config({ path: resolve('../../.env') });
-
 app.use(express.static('build'));
 
-const config = { authApiUrl: process.env.AUTH_API_URL };
+const config = {
+  parentHost: process.env.AUTH_PARENT_HOST,
+  authApiUrl: process.env.AUTH_API_URL,
+};
 
 app.get('/config.js', (_, res) => {
   res.send(`window.config = ${JSON.stringify(config)}`);

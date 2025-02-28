@@ -1,8 +1,4 @@
 import Redis from 'ioredis';
-import dotenv from 'dotenv';
-import { resolve } from 'path';
-
-dotenv.config({ path: resolve('../../.env') });
 
 const redisConfig = { host: process.env.REDIS_HOST, port: 6379 };
 

@@ -1,3 +1,4 @@
+# For development
 version: '3.8'
 
 services:
@@ -5,7 +6,7 @@ services:
     build:
       context: "./services/auth.ui"
       dockerfile: "../../docker/Dockerfile.dev"
-    image: eldekyfin/auth.ui
+    image: eldekyfin/node-dev
     env_file: .env
     volumes:
       - ./services/auth.ui:/var/app:delegated
@@ -19,7 +20,7 @@ services:
     build:
       context: "./services/auth.api"
       dockerfile: "../../docker/Dockerfile.dev"
-    image: eldekyfin/auth.ui
+    image: eldekyfin/node-dev
     env_file: .env
     volumes:
       - ./services/auth.api/:/var/app:delegated
@@ -29,7 +30,7 @@ services:
     ports:
       - 5052:5052
 
-  auth.db:
+  db:
     image: yobasystems/alpine-mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
@@ -49,11 +50,25 @@ services:
       retries: 10
 
 
+  checker.ui: 
+    build:
+      context: "./services/auth.ui"
+      dockerfile: "../../docker/Dockerfile.dev"
+    image: eldekyfin/node-dev
+    env_file: .env
+    volumes:
+      - ./services/checker.ui:/var/app:delegated
+      - ./node_modules:/var/app/node_modules
+    depends_on:
+      - checker
+    ports:
+      - 5050:5050
+
   checker:
     build:
       context: "./services/checker"
       dockerfile: "../../docker/Dockerfile.dev"
-    image: eldekyfin/checker
+    image: eldekyfin/node-dev
     env_file: .env
     volumes:
       - ./services/checker:/var/app:delegated

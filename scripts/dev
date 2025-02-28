@@ -2,5 +2,6 @@
 
 (cd services/auth.ui; yarn watch) &     \
 (cd services/auth.api; yarn watch) &    \
-(cd services/checker; yarn watch) &    \
+(cd services/checker.ui; yarn watch) &  \
+(cd services/checker; yarn watch) &     \
 docker-compose up & wait
