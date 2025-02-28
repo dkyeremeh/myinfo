@@ -24,7 +24,7 @@ export const signup = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    publish('auth.signup', JSON.stringify({ email }));
+    publish('auth.signup', JSON.stringify({ email, id: userId }));
 
     res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
@@ -45,7 +45,7 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
 
-    publish('auth.login', JSON.stringify({ email }));
+    publish('auth.login', JSON.stringify({ email, id: user.id }));
     res.json({ msg: 'Login successful', token });
   } catch (err) {
     httpErrorResponse(res, err);

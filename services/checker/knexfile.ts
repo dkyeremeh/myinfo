@@ -9,7 +9,7 @@ const config: Knex.Config = {
     database: process.env.DB_NAME,
   },
   migrations: {
-    tableName: 'knex_migrations',
+    tableName: 'z_checker_migrations',
     directory: './migrations',
   },
 };
