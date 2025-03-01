@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myinfo-scanner
+spec:
+  selector:
+    matchLabels:
+      app: myinfo-scanner
+  template:
+    metadata:
+      labels:
+        app: myinfo-scanner
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: myinfo-scanner
+          image: eldekyfin/myinfo.scanner
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: app-config
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
