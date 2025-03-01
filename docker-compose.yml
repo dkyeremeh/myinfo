@@ -15,7 +15,7 @@ services:
     depends_on:
       - auth.api
     ports:
-      - 5051:5051
+      - 5051:5050
 
   auth.api:
     build:
@@ -30,7 +30,7 @@ services:
     # depends_on:
     #   - redis
     ports:
-      - 5052:5052
+      - 5052:5050
     depends_on:
       - db
       - rabbit
@@ -81,7 +81,7 @@ services:
       - ./node_modules:/var/app/node_modules
       - /var/app/node_modules/shared
     ports:
-      - 5053:5053
+      - 5053:5050
     depends_on:
       - db
       - rabbit
