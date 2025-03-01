@@ -11,6 +11,7 @@ RUN yarn install
 COPY packages/${APP} .
 COPY packages/shared ../shared
 
-RUN yarn build
+RUN cd ../shared; yarn build;
+RUN yarn build;
 
 CMD [ "yarn", "start" ]
