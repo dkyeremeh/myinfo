@@ -35,14 +35,13 @@ services:
       - db
       - rabbit
 
-
   db:
     image: yobasystems/alpine-mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${MYINFO_DB_PASS}
+      MYSQL_DATABASE: ${MYINFO_DB_NAME}
+      MYSQL_USER: ${MYINFO_DB_USER}
+      MYSQL_PASSWORD: ${MYINFO_DB_PASS}
     volumes:
       - "./data/db.dev:/var/lib/mysql"
 

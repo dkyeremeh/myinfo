@@ -21,6 +21,7 @@ export const authMiddleWare = (
     if (req.auth) next();
     else res.status(401).send({ error: "You're logged out" });
   } catch (err) {
+    console.log(err);
     res.status(401).send({ error: 'Invalid token received' });
   }
 };
