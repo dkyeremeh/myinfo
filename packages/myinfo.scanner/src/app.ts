@@ -1,9 +1,5 @@
-import cors from 'cors';
 import { faker } from '@faker-js/faker';
-import express from 'express';
 import { consumeMessages, sendMessage } from 'shared/build/streams';
-
-const app = express();
 
 consumeMessages('user.scan', (user) => {
   let count = 0;
@@ -18,13 +14,4 @@ consumeMessages('user.scan', (user) => {
 
     if (count++ >= 5) clearInterval(runner);
   }, 5000);
-});
-
-app.use(express.json(), cors());
-app.get('/user-data', (req, res) => {});
-
-const PORT = process.env.PORT ?? 5050;
-
-app.listen(PORT, () => {
-  console.log(`Auth API service is running on http://localhost:${PORT}`);
 });

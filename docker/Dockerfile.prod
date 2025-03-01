@@ -1,15 +1,15 @@
 FROM node:lts-slim
-WORKDIR /var/app
 ARG APP
+WORKDIR /var/app/
 
 COPY packages/${APP}/package.json ./
+COPY packages/shared/package.json ../shared/
+
 RUN yarn install
+# RUN ls -la ../shared/node_modules
 
-COPY packages/shared node_modules/shared
-COPY packages/shared shared
-COPY packages/${APP} . 
+COPY packages/${APP} .
+COPY packages/shared ../shared
 
-RUN yarn build; \
-    rm -rf src
 
 CMD [ "yarn", "start" ]
