@@ -2,16 +2,24 @@ FROM node:lts-slim
 ARG APP
 WORKDIR /var/app/
 
+# Install packages for shared
 COPY packages/shared/package.json ../shared/
 RUN cd ../shared; yarn install
 
+# Install packages for shared
 COPY packages/${APP}/package.json ./
 RUN yarn install
 
+# Copy data
 COPY packages/${APP} .
 COPY packages/shared ../shared
 
+# Build packages
 RUN cd ../shared; yarn build;
-RUN yarn build;
+
+# Temp
+RUN ls -la ../shared/build; ls -la node_modules/shared/build
+
+RUN yarn build
 
 CMD [ "yarn", "start" ]
