@@ -9,9 +9,9 @@ if [ -z "$1" ]; then
     push_image auth.api
     push_image auth.ui
 
-    # push_image myinfo.api
-    # push_image myinfo.ui
-    # push_image myinfo.scanner
+    push_image myinfo.api
+    push_image myinfo.ui
+    push_image myinfo.scanner
 else
     push_image $1
 fi
