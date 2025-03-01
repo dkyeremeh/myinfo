@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-api
+  name: myinfo-api
 spec:
   selector:
     matchLabels:
-      app: auth-api
+      app: myinfo-api
   template:
     metadata:
       labels:
-        app: auth-api
+        app: myinfo-api
     spec:
       automountServiceAccountToken: false
       containers:
-        - name: auth-api
-          image: eldekyfin/auth.api
+        - name: myinfo-api
+          image: eldekyfin/myinfo.api
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
@@ -30,12 +30,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-api
+  name: myinfo-api
 spec:
   type: NodePort
   selector:
-    app: auth-api
+    app: myinfo-api
   ports:
     - port: 5050
       targetPort: 5050
-      nodePort: 30002
+      nodePort: 30003

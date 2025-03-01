@@ -8,7 +8,7 @@
     "start": "node server.js",
     "watch": "vite build --watch & yarn tsc -b --watch ",
     "dev": "node server.js",
-    "build": "tsc -b && vite build"
+    "build": "vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

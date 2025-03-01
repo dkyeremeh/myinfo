@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-db
+  name: myinfo-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-db
+      app: myinfo-db
   template:
     metadata:
       labels:
-        app: auth-db
+        app: myinfo-db
     spec:
       automountServiceAccountToken: false
       containers:
-        - name: auth-db
+        - name: myinfo-db
           image: yobasystems/alpine-mariadb
           imagePullPolicy: IfNotPresent
           resources:
@@ -28,35 +28,35 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: app-config
-                  key: AUTH_DB_NAME
+                  key: MYINFO_DB_NAME
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
                   name: app-config
-                  key: AUTH_DB_USER
+                  key: MYINFO_DB_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   name: app-config
-                  key: AUTH_DB_PASS
+                  key: MYINFO_DB_PASS
           volumeMounts:
-            - name: auth-db-data
+            - name: myinfo-db-data
               mountPath: /var/lib/mysql
       volumes:
-        - name: auth-db-data
+        - name: myinfo-db-data
           hostPath:
-            path: /k8s/auth
+            path: /k8s/myinfo
             type: DirectoryOrCreate
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-db
+  name: myinfo-db
 spec:
   type: ClusterIP
   selector:
-    app: auth-db
+    app: myinfo-db
   ports:
     - port: 3306
       targetPort: 3306

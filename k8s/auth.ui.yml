@@ -15,7 +15,7 @@ spec:
       containers:
         - name: auth-ui
           image: eldekyfin/auth.ui
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: app-config
