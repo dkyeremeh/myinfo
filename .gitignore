@@ -1,6 +1,4 @@
 build
-build.ui
-build.server
 knexfile.js
 
 # Logs
