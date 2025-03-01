@@ -14,12 +14,12 @@ export const signup = async (req: Request, res: Response) => {
       .validate(req.body)
       .catch(throwHttpError(400));
 
-    const [exists] = await db('users').where({ email });
+    const [exists] = await db('auth_users').where({ email });
 
     if (exists) throw new HttpError(400, 'An account exists with this email');
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const [userId] = await db('users').insert({
+    const [userId] = await db('auth_users').insert({
       email,
       name,
       password: hashedPassword,
@@ -37,7 +37,7 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const user = await db('users').where({ email }).first();
+    const user = await db('auth_users').where({ email }).first();
 
     if (!user || !(await bcrypt.compare(password, user.password)))
       throw new HttpError(401, 'Invalid credentials');
@@ -48,6 +48,7 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
 
+    console.log(user);
     sendMessage('auth.login', user);
 
     res.json({ msg: 'Login successful', token });

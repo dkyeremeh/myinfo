@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn migrate; node build/app.js",
-    "build": "yarn tsc",
-    "migrate": "yarn knex migrate:latest",
+    "build": "yarn tsc -b",
+    "migrate": "sleep 5; yarn knex migrate:latest",
     "watch": "yarn tsc -b --watch",
     "dev": "yarn migrate; yarn build; yarn nodemon"
   },

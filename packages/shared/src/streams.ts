@@ -34,10 +34,7 @@ export const sendMessage = async (
     await channel.assertQueue(queue);
     channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
 
-    console.log(`📤 Message queued`, message);
-
-    await channel.close();
-    await connection.close();
+    console.log('📤 Message queued:', queue, message);
   } catch (err) {
     console.error('Error queuing message:', err);
   }
@@ -58,8 +55,8 @@ export const consumeMessages = async (
         const message = JSON.parse(msg.content.toString());
         channel.ack(msg); // Acknowledge message
 
-        console.log('✅ Received:', message);
-        fn(msg.content);
+        console.log('✅ Received:', queue, message);
+        fn(message);
       }
     });
   } catch (err) {

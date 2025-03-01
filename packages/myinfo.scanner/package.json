@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node build/app.js",
     "build": "yarn tsc",
-    "migrate": "yarn knex migrate:latest",
     "watch": "yarn tsc -b --watch",
-    "dev": "yarn migrate; yarn nodemon"
+    "dev": " yarn nodemon"
   },
   "dependencies": {
     "@faker-js/faker": "^9.5.1",

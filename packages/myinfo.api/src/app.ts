@@ -8,10 +8,15 @@ const app = express();
 app.use(express.json(), cors());
 app.use(authMiddleWare);
 
-app.get('/api/info', (req: AppRequest, res) => {
-  const user = req.auth!;
-  const data = db('user_info').where({ user: user.id });
-  res.send({ msg: 'Success', data });
+app.get('/api/info', async (req: AppRequest, res) => {
+  try {
+    const user = req.auth!;
+    const data = await db('user_info').where({ user: user.id });
+    res.send({ msg: 'Success', data });
+  } catch (err) {
+    console.log(err);
+    res.send({ error: 'Unexpected error' });
+  }
 });
 
 const PORT = process.env.PORT ?? 5053;

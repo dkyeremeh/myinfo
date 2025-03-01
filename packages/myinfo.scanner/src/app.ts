@@ -7,6 +7,7 @@ const app = express();
 
 consumeMessages('user.scan', (user) => {
   let count = 0;
+  console.log('scanning for user', user);
 
   const runner = setInterval(() => {
     sendMessage('user.scan.result', {
@@ -15,7 +16,7 @@ consumeMessages('user.scan', (user) => {
       user: user.id,
     });
 
-    if (count >= 10) clearInterval(runner);
+    if (count++ >= 5) clearInterval(runner);
   }, 5000);
 });
 

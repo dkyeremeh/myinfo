@@ -4,16 +4,16 @@ yarn workspace shared build;
 
 docker-compose down
 docker-compose build auth.api # We use the same image for all dev services
-# # Shared
-# (cd packages/shared; yarn watch) &     \
+# Shared
+(cd packages/shared; yarn watch) &     \
 
 # # Auth
-# (cd packages/auth.ui; yarn watch) &    \
-# (cd packages/auth.api; yarn watch) &    \
+(cd packages/auth.ui; yarn watch) &    \
+(cd packages/auth.api; yarn watch) &    \
 
 # # myinfo
-# (cd packages/myinfo.ui; yarn watch) &  \
-# (cd packages/myinfo.api; yarn watch) &      \
-# (cd packages/myinfo.scanner; yarn watch) &     \
+(cd packages/myinfo.ui; yarn watch) &  \
+(cd packages/myinfo.api; yarn watch) &      \
+(cd packages/myinfo.scanner; yarn watch) &     \
 
 docker-compose up & wait

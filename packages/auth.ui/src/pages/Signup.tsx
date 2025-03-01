@@ -12,9 +12,9 @@ const Signup: React.FC = () => {
   const onSubmit = async (data: { email: string; password: string }) => {
     const res = await signup({ ...data, repassword, name });
     setResponse(res);
-    // setMessage(msg)
+    console.log('login response', res);
 
-    location.assign('/login');
+    if (res.success) location.assign('/login');
   };
 
   const bottomContent = (

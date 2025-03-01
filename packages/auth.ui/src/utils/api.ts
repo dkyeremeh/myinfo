@@ -4,35 +4,30 @@ import { postAuthStatus, saveToken } from './auth';
 //@ts-expect-error mumbo jumbo
 const config = window.config;
 
-type OnLoginSuccess = (_token: string) => void;
-
 const api = axios.create({
   baseURL: config.authApiUrl,
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const login = async (
-  data: { email: string; password: string },
-  onSuccess: OnLoginSuccess
-) => {
+export const login = async (data: { email: string; password: string }) => {
   try {
     const response = await api.post('/login', data);
 
     saveToken(response.data.token);
     postAuthStatus('LOGIN_SUCCESS');
 
-    onSuccess?.(response.data.token);
+    console.log('Login successful:', response.data);
+    return { success: true, msg: 'Login successful' };
   } catch (error) {
+    // @ts-ignore
+    const msg: string = error.response?.data?.error || error.message;
     window.parent.postMessage(
-      {
-        action: 'LOGIN_FAILED',
-        error,
-      },
-      // @ts-ignore
+      { action: 'LOGIN_FAILED', error: msg }, // @ts-ignore
       window.config.parentHost
     );
-
     console.error('Login failed:', error);
+
+    return { success: false, msg };
   }
 };
 

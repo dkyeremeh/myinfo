@@ -1,15 +1,19 @@
 import { db } from './db';
 import { consumeMessages, sendMessage } from 'shared/build/streams';
 
-consumeMessages('auth.signup', (user) => {
+consumeMessages('auth.login', (user) => sendMessage('user.scan', user));
+
+consumeMessages('auth.signup', async (user) => {
   if (!user.id) return;
   console.log('user signup found');
+  await db('users').insert(user);
 
-  db('users').insert(user);
-
-  sendMessage('scan_user', user);
+  sendMessage('user.scan', user);
 });
 
-consumeMessages('auth.login', (user) => {
-  console.log('user logged in', user);
+consumeMessages('user.scan.result', async (info) => {
+  if (!info.user) return;
+  console.log('saving user info');
+
+  await db('user_info').insert(info);
 });

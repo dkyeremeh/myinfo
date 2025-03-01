@@ -15,12 +15,9 @@ export const postAuthStatus = (action?: string) => {
   console.log('sending status to', parentHost);
 
   window.parent.postMessage(
-    {
-      state: token ? 'LOGGED_IN' : 'LOGGED_OUT',
-      action,
-      token,
-    },
-    '*'
+    { state: token ? 'LOGGED_IN' : 'LOGGED_OUT', action, token },
+    // @ts-ignore
+    window.config.parentHost
   );
 };
 

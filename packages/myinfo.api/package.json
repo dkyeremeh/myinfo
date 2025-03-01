@@ -4,9 +4,9 @@
   "main": "build/app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node build/app.js",
+    "start": "yarn migrate; node build/app.js",
     "build": "tsc -b",
-    "migrate": "yarn knex migrate:latest",
+    "migrate": "sleep 5; yarn knex migrate:latest",
     "watch": "tsc -b --watch",
     "dev": "yarn migrate; yarn nodemon"
   },

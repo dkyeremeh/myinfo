@@ -6,12 +6,16 @@
 
 build_image(){
     echo "Building $1 image"
-    docker build -f docker/Dockerfile.prod -t eldekyfin/$1:latest --build-arg APP=$1 ./
+    docker build -f docker/Dockerfile.prod -t eldekyfin/$1:latest --build-arg APP=$1 .
 }
 
 if [ -z "$1" ]; then 
     build_image auth.api
     build_image auth.ui
+
+    build_image myinfo.api
+    build_image myinfo.ui
+    build_image myinfo.scanner
     # build_image recognition
 else
     build_image $1
