@@ -26,30 +26,30 @@ spec:
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: recon-config
-                  key: DB_NAME
+                  name: app-config
+                  key: AUTH_DB_NAME
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  name: recon-config
-                  key: DB_USER
+                  name: app-config
+                  key: AUTH_DB_USER
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: recon-config
-                  key: DB_PASS
-            - name: DB_DATA_PATH
+                  name: app-config
+                  key: AUTH_DB_PASS
+            - name: AUTH_DB_DATA_PATH
               valueFrom:
                 configMapKeyRef:
-                  name: recon-config
-                  key: DB_DATA_PATH
+                  name: app-config
+                  key: AUTH_DB_DATA_PATH
           volumeMounts:
             - name: auth-db-data
               mountPath: /var/lib/mysql
       volumes:
         - name: auth-db-data
           hostPath:
-            path: $(DB_DATA_PATH)
+            path: $(AUTH_DB_DATA_PATH)
             type: DirectoryOrCreate
 
 ---

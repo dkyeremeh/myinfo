@@ -2,7 +2,7 @@
     "name": "myinfo",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "git@github.com:dkyeremeh/txt-recon.git",
+    "repository": "git@github.com:dkyeremeh/myinfo.git",
     "author": "Desmond Kyeremeh <elDekyfin@gmail.com>",
     "license": "MIT",
     "private": true,

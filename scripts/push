@@ -2,13 +2,16 @@
 
 push_image(){
     echo "Pushing $1 to docker registry"
-    docker push eldekyfin/recon.$1:latest
+    docker push eldekyfin/$1:latest
 }
 
 if [ -z "$1" ]; then 
-    push_image auth
-    push_image chidori
-    # build_image recognition
+    push_image auth.api
+    push_image auth.ui
+
+    # push_image myinfo.api
+    # push_image myinfo.ui
+    # push_image myinfo.scanner
 else
     push_image $1
 fi
