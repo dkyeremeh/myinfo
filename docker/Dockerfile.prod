@@ -3,7 +3,7 @@ ARG APP
 WORKDIR /var/app/
 
 COPY packages/shared/package.json ../shared/
-RUN cd ../shared; yarn install; yarn build;
+RUN cd ../shared; yarn install
 
 COPY packages/${APP}/package.json ./
 RUN yarn install
@@ -11,6 +11,7 @@ RUN yarn install
 COPY packages/${APP} .
 COPY packages/shared ../shared
 
+RUN cd ../shared; yarn build;
 RUN yarn build;
 
 CMD [ "yarn", "start" ]
