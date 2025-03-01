@@ -5,22 +5,20 @@ metadata:
 data:
   # auth
 
-  AUTH_UI_URL: http://localhost:5051
+  AUTH_UI_URL: http://localhost:30001
   AUTH_PARENT_HOST: http://localhost:30000
   AUTH_API_URL: http://localhost:30002/api
   AUTH_DB_HOST: auth-db
   AUTH_DB_USER: db
   AUTH_DB_PASS: yourpassword
   AUTH_DB_NAME: db
-  AUTH_DB_DATA_PATH: /path/to/auth-db/data
 
   # myinfo
-  MYINFO_API_URL: http://localhost:30001/auth
+  MYINFO_API_URL: http://localhost:30003/auth
   MYINFO_DB_HOST: myinfo-db
   MYINFO_DB_USER: db
   MYINFO_DB_PASS: yourpassword
   MYINFO_DB_NAME: db
-  MYINFO_DB_DATA_PATH: /path/to/myinfo-db/data
 
   JWT_SECRET: s0mes3cre5
 
