@@ -16,4 +16,5 @@ RUN yarn install
 COPY packages/${APP} .
 RUN yarn build
 
+EXPOSE 5050
 CMD [ "yarn", "start" ]
