@@ -2,8 +2,8 @@
   "version": "2.5.0",
   "summary": {
     "title": "New Threat Model",
-    "owner": "",
-    "description": "",
+    "owner": "Me",
+    "description": "Test diagram",
     "id": 0
   },
   "detail": {
@@ -20,7 +20,7 @@
       }
     ],
     "diagramTop": 2,
-    "reviewer": "",
+    "reviewer": "Me",
     "threatTop": 0
   }
 }
