@@ -36,17 +36,28 @@ spec:
                   key: AUTH_DB_USER
             - name: MYSQL_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: app-config
+                secretKeyRef:
+                  name: app-secrets
                   key: AUTH_DB_PASS
           volumeMounts:
             - name: auth-db-data
               mountPath: /var/lib/mysql
       volumes:
         - name: auth-db-data
-          hostPath:
-            path: /Users/desmondkyeremeh/Projects/masters/txt-recon/data/auth
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: auth-db-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auth-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 
 ---
 apiVersion: v1

@@ -80,6 +80,7 @@ web_modules/
 # dotenv environment variable files
 config.yml
 config.yaml
+secrets.yml
 
 .env
 .env.development.local

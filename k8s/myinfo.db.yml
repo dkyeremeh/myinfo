@@ -36,17 +36,28 @@ spec:
                   key: MYINFO_DB_USER
             - name: MYSQL_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: app-config
+                secretKeyRef:
+                  name: app-secrets
                   key: MYINFO_DB_PASS
           volumeMounts:
             - name: myinfo-db-data
               mountPath: /var/lib/mysql
       volumes:
         - name: myinfo-db-data
-          hostPath:
-            path: /Users/desmondkyeremeh/Projects/masters/txt-recon/data/myinfo
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: myinfo-db-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myinfo-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 
 ---
 apiVersion: v1
