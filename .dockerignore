@@ -1,6 +1,6 @@
-# Ignore everything in node_modules
-node_modules
-build
+# Ignore everything in node_modules (recursively, including per-package ones)
+**/node_modules
+**/build
 
 # Except for the shared folder
 !node_modules/shared/

@@ -13,7 +13,7 @@ data:
   AUTH_DB_NAME: db
 
   # myinfo
-  MYINFO_API_URL: http://localhost:30003/auth
+  MYINFO_API_URL: http://localhost:30003/api
   MYINFO_DB_HOST: myinfo-db
   MYINFO_DB_USER: db
   MYINFO_DB_NAME: db
