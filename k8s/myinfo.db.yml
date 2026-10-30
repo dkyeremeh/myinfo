@@ -45,7 +45,7 @@ spec:
       volumes:
         - name: myinfo-db-data
           hostPath:
-            path: /k8s/myinfo
+            path: /Users/desmondkyeremeh/Projects/masters/txt-recon/data/myinfo
             type: DirectoryOrCreate
 
 ---

@@ -45,7 +45,7 @@ spec:
       volumes:
         - name: auth-db-data
           hostPath:
-            path: /k8s/auth
+            path: /Users/desmondkyeremeh/Projects/masters/txt-recon/data/auth
             type: DirectoryOrCreate
 
 ---

@@ -6,7 +6,14 @@ import { signupSchema } from './utils/schemas';
 import { httpErrorResponse, throwHttpError } from './utils/error';
 import HttpError from './utils/HttpError';
 
-import { sendMessage } from 'shared/build/streams.js';
+import { postJSON } from 'shared/build/http.js';
+
+const requestScan = (user: Record<string, any>, isNewUser: boolean) => {
+  postJSON(`${process.env.MYINFO_API_INTERNAL_URL}/internal/scan`, {
+    ...user,
+    isNewUser,
+  }).catch((err) => console.error('Failed to request scan', err));
+};
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -25,7 +32,7 @@ export const signup = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    sendMessage('auth.signup', { email, name, id: userId });
+    requestScan({ email, name, id: userId }, true);
 
     res.status(201).json({ msg: 'User created successfully', userId });
   } catch (err) {
@@ -49,7 +56,7 @@ export const login = async (req: Request, res: Response) => {
     });
 
     console.log(user);
-    sendMessage('auth.login', user);
+    requestScan(user, false);
 
     res.json({ msg: 'Login successful', token });
   } catch (err) {
