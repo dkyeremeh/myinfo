@@ -10,19 +10,19 @@ data:
   AUTH_API_URL: http://localhost:30002/api
   AUTH_DB_HOST: auth-db
   AUTH_DB_USER: db
-  AUTH_DB_PASS: yourpassword
   AUTH_DB_NAME: db
 
   # myinfo
-  MYINFO_API_URL: http://localhost:30003/auth
+  MYINFO_API_URL: http://localhost:30003/api
   MYINFO_DB_HOST: myinfo-db
   MYINFO_DB_USER: db
-  MYINFO_DB_PASS: yourpassword
   MYINFO_DB_NAME: db
 
-  JWT_SECRET: s0mes3cre5
+  # Internal service-to-service URLs (not exposed outside the cluster)
+  MYINFO_API_INTERNAL_URL: http://myinfo-api:5050
+  MYINFO_SCANNER_URL: http://myinfo-scanner:5050
 
-  # Rabbit mq
-  RABBITMQ_HOST: rabbit
-  RABBITMQ_DEFAULT_USER: rabbit
-  RABBITMQ_DEFAULT_PASS: secretpass
+  # Shared secret required on internal service-to-service requests
+  INTERNAL_API_KEY: yourinternalkey
+
+  # AUTH_DB_PASS, MYINFO_DB_PASS, and JWT_SECRET live in secrets.yml, not here.

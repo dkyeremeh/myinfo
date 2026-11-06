@@ -2,7 +2,7 @@
 version: '3.8'
 
 services:
-  auth.ui: 
+  auth.ui:
     build:
       context: "./packages/auth.ui"
       dockerfile: "../../docker/Dockerfile.dev"
@@ -24,16 +24,13 @@ services:
     image: eldekyfin/node-dev
     env_file: .env
     volumes:
-      - ./packages/auth.api/:/var/app 
+      - ./packages/auth.api/:/var/app
       - ./node_modules:/var/app/node_modules
       - /var/app/node_modules/shared  # Mount node_modules from the container itself
-    # depends_on:
-    #   - redis
     ports:
       - 5052:5050
     depends_on:
       - db
-      - rabbit
 
   db:
     image: yobasystems/alpine-mariadb
@@ -45,16 +42,7 @@ services:
     volumes:
       - "./data/db.dev:/var/lib/mysql"
 
-  rabbit:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    # ports:
-    #   - "5672:5672"  # AMQP protocol port
-    #   - "15672:15672"  # Management UI
-    env_file: .env
-
-
-  myinfo.ui: 
+  myinfo.ui:
     build:
       context: "./packages/auth.ui"
       dockerfile: "../../docker/Dockerfile.dev"
@@ -83,7 +71,6 @@ services:
       - 5053:5050
     depends_on:
       - db
-      - rabbit
 
   myinfo.scanner:
     build:
@@ -95,6 +82,3 @@ services:
       - ./packages/myinfo.scanner:/var/app:delegated
       - ./node_modules:/var/app/node_modules
       - /var/app/node_modules/shared
-    depends_on:
-      - rabbit
-

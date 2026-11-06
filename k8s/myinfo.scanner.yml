@@ -23,3 +23,18 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
+          ports:
+            - containerPort: 5050
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myinfo-scanner
+spec:
+  type: ClusterIP
+  selector:
+    app: myinfo-scanner
+  ports:
+    - port: 5050
+      targetPort: 5050

@@ -1,9 +1,18 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { INTERNAL_API_KEY_HEADER } from 'shared/build/http';
 
 export interface AppRequest extends Request {
   auth?: Record<string, any>; // Adjust fields as needed
 }
+
+export const requireInternalKey = (req: Request, res: Response, next: Function) => {
+  if (req.header(INTERNAL_API_KEY_HEADER) !== process.env.INTERNAL_API_KEY) {
+    res.status(401).send({ error: 'Invalid internal API key' });
+    return;
+  }
+  next();
+};
 
 export const authMiddleWare = (
   req: AppRequest,
